@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Pacientes | InovaMed</title>
+    <link rel="stylesheet" href="css/meus-pacientes.css">
+     <link rel="icon" type="image/x-icon" href="/img/logo.inovamed-removebg-preview (1).png">
+</head>
+<body>
+
+<div class="container">
+    <!-- BARRA SUPERIOR -->
+    <div class="navbar">
+        <div class="logo">
+            InovaMed - Painel do Médico
+        </div>
+        <div class="nav-links">
+            <span id="medicoNome"></span>
+            <a href="../Frontend/dashboard-medico.html">Dashboard</a>
+            <a href="../Frontend/consultas-medico.html">Minhas Consultas</a>
+            <a href="../Frontend/meus-pacientes.html" class="active">Meus Pacientes</a>
+            <a href="../Frontend/login.html" class="logout-btn">Sair</a>
+        </div>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="main-content">
+        <!-- TÍTULO DA PÁGINA -->
+        <div class="page-header">
+            <h1>Meus Pacientes</h1>
+            <p>Gerencie seus pacientes, acesse históricos e laudos</p>
+        </div>
+
+        <!-- FILTROS -->
+        <div class="filtros">
+            <div class="filtros-row">
+                <div class="filtro-group">
+                    <label>Buscar:</label>
+                    <input type="text" id="buscaPaciente" placeholder="Nome do paciente...">
+                </div>
+                <div class="filtro-group">
+                    <label>Ordenar por:</label>
+                    <select id="ordenarPor">
+                        <option value="nome">Nome (A-Z)</option>
+                        <option value="data">Data da última consulta</option>
+                        <option value="consultas">Número de consultas</option>
+                    </select>
+                </div>
+                <button id="btnFiltrar" class="btn-filtrar">Filtrar</button>
+                <button id="btnLimpar" class="btn-limpar">Limpar</button>
+            </div>
+        </div>
+
+        <!-- LISTA DE PACIENTES -->
+        <div class="pacientes-grid" id="pacientesGrid">
+            <!-- Cards serão preenchidos via JS -->
+        </div>
+
+        <!-- MODAL DE DETALHES DO PACIENTE -->
+        <div id="modalPaciente" class="modal">
+            <div class="modal-content modal-large">
+                <div class="modal-header">
+                    <h3 id="modalTitulo">Detalhes do Paciente</h3>
+                    <span class="modal-close">&times;</span>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Conteúdo dinâmico -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-fechar-modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL DE LAUDO -->
+        <div id="modalLaudo" class="modal">
+            <div class="modal-content modal-medium">
+                <div class="modal-header">
+                    <h3 id="laudoTitulo">Detalhes do Laudo</h3>
+                    <span class="modal-close-laudo">&times;</span>
+                </div>
+                <div class="modal-body" id="laudoBody">
+                    <!-- Conteúdo dinâmico -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-fechar-modal-laudo">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RODAPÉ -->
+    <div class="footer">
+        <div style="text-align: center;">
+            <p>InovaMed - Sistema de Gestão Hospitalar</p>
+            <p style="margin-top: 10px;">© 2026 InovaMed. Todos os direitos reservados.</p>
+            <p style="margin-top: 10px;">
+                Desenvolvido por: 
+                <strong>Giovana Soares</strong> | 
+                <strong>Heloisa Soares</strong> | 
+                <strong>Bheatriz Mello</strong>
+            </p>
+            <p style="margin-top: 5px; font-size: 12px;">
+                <a href="termos.html">Termos de Uso</a> | 
+                <a href="privacidade.html">Política de Privacidade</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="../Backend/js/meus-pacientes.js"></script>
+</body>
+</html>  

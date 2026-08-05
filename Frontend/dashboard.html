@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paciente | InovaMed</title>
+    <link rel="stylesheet" href="../Frontend/css/dashboard.css">
+    <link rel="icon" type="image/x-icon" href="/img/logo.inovamed-removebg-preview (1).png">
+</head>
+<body>
+
+<div class="container">
+    <!-- TOP BAR COM PERFIL E CONTATOS DE EMERGÊNCIA -->
+    <div class="top-profile-bar">
+        <div class="profile-section">
+            <div class="profile-avatar" id="profileAvatar">GS</div>
+            <div class="profile-name" id="profileName">
+                Giovana Soares
+                <span>Paciente</span>
+            </div>
+        </div>
+        <div class="emergency-contacts">
+            <div class="emergency-item">
+                <strong>SUS 24h:</strong>
+                <span>0800 123 4567</span>
+            </div>
+            <div class="emergency-item">
+                <strong>Samu:</strong>
+                <span>192</span>
+            </div>
+            <div class="emergency-item">
+                <strong>Médico Plantão:</strong>
+                <span>(11) 99999-8888</span>
+            </div>
+            <a href="paginicial.html" class="logout-btn" id="logoutBtn">Sair</a>
+        </div>
+    </div>
+
+    <!-- INFORMAÇÕES DO USUÁRIO COM LOGO -->
+    <div class="user-info-banner">
+        <div class="user-info-text">
+            <h3 id="welcomeMessage">Bem-vindo, Giovana Soares!</h3>
+            <p>Tipo: Paciente</p>
+        </div>
+        <div class="user-logo">
+            <img src="../img/logo.inovamed-removebg-preview (1).png" alt="InovaMed Logo">
+            <h4>InovaMed</h4>
+        </div>
+    </div>
+
+    <!-- CARROSSEL DE CAMPANHAS COM IMAGENS -->
+    <div class="campaign-carousel">
+        <div class="carousel-container">
+            <div class="carousel-slide active">
+                <img src="../img/vacinacao.jpeg" alt="Campanha de Vacinação" class="carousel-bg-image">
+                <div class="slide-content">
+                    <h2>Campanha de Vacinação</h2>
+                    <p>Proteja-se contra a Gripe. Vacina disponível em todas as unidades!</p>
+                    <p class="slide-subtitle">Vacinar é proteger. Procure a Estratégia de Saúde da Família e, se possível, leve o cartão de vacinação.</p>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="../img/checkup.jpg" alt="Check-up Gratuito" class="carousel-bg-image">
+                <div class="slide-content">
+                    <h2>Check-up Gratuito</h2>
+                    <p>Cuide de si mesma. Agende sua avaliação gratuita!</p>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="../img/saudemental.jpeg" alt="Saúde Mental" class="carousel-bg-image">
+                <div class="slide-content">
+                    <h2>Saúde Mental</h2>
+                    <p>Acompanhamento psicológico online disponível para todos</p>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="../img/diabete.jpeg" alt="Prevenção ao Diabetes" class="carousel-bg-image">
+                <div class="slide-content">
+                    <h2>Prevenção ao Diabetes</h2>
+                    <p>Check-up gratuito. Previna-se!</p>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
+    <!-- SEÇÃO MARCAR CONSULTA E CONSULTAS MARCADAS -->
+    <div class="appointment-wrapper">
+        <!-- MARCAR CONSULTA -->
+        <div class="appointment-card">
+            <h2>Marcar Nova Consulta</h2>
+            <form id="appointmentForm">
+                <div class="form-group">
+                    <label for="patientName">Nome do Paciente:</label>
+                    <input type="text" id="patientName" name="patientName" placeholder="Nome do paciente logado" required readonly>
+                    <div class="readonly-info">
+                        <span>Este campo é preenchido automaticamente com o nome da sua conta</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appointmentDate">Data da Consulta:</label>
+                    <input type="date" id="appointmentDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appointmentTime">Horário:</label>
+                    <input type="time" id="appointmentTime" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appointmentType">Especialidade:</label>
+                    <select id="appointmentType" required>
+                        <option value="">Selecione uma especialidade...</option>
+                        <option value="Clínica Geral">Clínica Geral</option>
+                        <option value="Cardiologia">Cardiologia</option>
+                        <option value="Dermatologia">Dermatologia</option>
+                        <option value="Oftalmologia">Oftalmologia</option>
+                        <option value="Odontologia">Odontologia</option>
+                        <option value="Pediatria">Pediatria</option>
+                        <option value="Ginecologia">Ginecologia</option>
+                        <option value="Ortopedia">Ortopedia</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="doctorName">Médico:</label>
+                    <select id="doctorName" required>
+                        <option value="">Selecione primeiro uma especialidade...</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="observacoes">Observações (opcional):</label>
+                    <textarea id="observacoes" rows="3" placeholder="Informe seus sintomas ou observações..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-primary">Marcar Consulta</button>
+            </form>
+        </div>
+
+        <!-- PRÓXIMAS CONSULTAS -->
+        <div class="consultas-card">
+            <h2>Próximas Consultas</h2>
+            <div class="consultas-lista">
+                <table class="tabela-consultas">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Horário</th>
+                            <th>Médico</th>
+                            <th>Especialidade</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaConsultasBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 40px;">
+                                Carregando consultas...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO DE CAMPANHAS - O QUE OFERECEMOS -->
+    <section class="campanhas">
+        <h2>O que Oferecemos</h2>
+        
+        <div class="campanhas-grid">
+            <a href="campanhas/vacinacao.html" class="campanha-card">
+                <div class="campanha-imagem">
+                    <img src="../img/cardvacina.jpg" alt="Campanha de Vacinação" class="campanha-img">
+                    <div class="campanha-overlay"></div>
+                </div>
+                <div class="campanha-conteudo">
+                    <h3>Campanha de Vacinação</h3>
+                    <p>Dia D de Vacinação contra a Poliomielite. Vacina disponível!</p>
+                    <span class="campanha-saiba">Saiba mais →</span>
+                </div>
+            </a>
+
+            <a href="campanhas/checkup.html" class="campanha-card">
+                <div class="campanha-imagem">
+                    <img src="../img/cardcheckup.jpeg" alt="Check-up Gratuito" class="campanha-img">
+                    <div class="campanha-overlay"></div>
+                </div>
+                <div class="campanha-conteudo">
+                    <h3>Check-up Gratuito</h3>
+                    <p>Comece o ano fazendo o seu Check-up. Agende já!</p>
+                    <span class="campanha-saiba">Saiba mais →</span>
+                </div>
+            </a>
+
+            <a href="campanhas/odontologia.html" class="campanha-card">
+                <div class="campanha-imagem">
+                    <img src="../img/cardodonto.jpg" alt="Odontologia Especializada" class="campanha-img">
+                    <div class="campanha-overlay"></div>
+                </div>
+                <div class="campanha-conteudo">
+                    <h3>Odontologia Especializada</h3>
+                    <p>50% off na primeira consulta! Cuide da sua saúde bucal.</p>
+                    <span class="campanha-saiba">Saiba mais →</span>
+                </div>
+            </a>
+
+            <a href="campanhas/nutricao.html" class="campanha-card">
+                <div class="campanha-imagem">
+                    <img src="../img/cardnutri.jpg" alt="Nutrição Esportiva" class="campanha-img">
+                    <div class="campanha-overlay"></div>
+                </div>
+                <div class="campanha-conteudo">
+                    <h3>Nutrição Esportiva</h3>
+                    <p>Primeira consulta com 30% OFF</p>
+                    <span class="campanha-saiba">Saiba mais →</span>
+                </div>
+            </a>
+
+            <a href="campanhas/saude-mental.html" class="campanha-card">
+                <div class="campanha-imagem">
+                    <img src="../img/cardmental.jpg" alt="Saúde Mental" class="campanha-img">
+                    <div class="campanha-overlay"></div>
+                </div>
+                <div class="campanha-conteudo">
+                    <h3>Saúde Mental</h3>
+                    <p>Acompanhamento psicológico online disponível para todos</p>
+                    <span class="campanha-saiba">Saiba mais →</span>
+                </div>
+            </a>
+
+            <a href="campanhas/fisioterapia.html" class="campanha-card">
+                <div class="campanha-imagem">
+                    <img src="../img/cardfisio.jpeg" alt="Fisioterapia" class="campanha-img">
+                    <div class="campanha-overlay"></div>
+                </div>
+                <div class="campanha-conteudo">
+                    <h3>Fisioterapia</h3>
+                    <p>Reabilitação e prevenção de lesões. Voltar a andar é possível!</p>
+                    <span class="campanha-saiba">Saiba mais →</span>
+                </div>
+            </a>
+
+            <a href="campanhas/oftalmologia.html" class="campanha-card">
+                <div class="campanha-imagem">
+                    <img src="../img/cardvisao.png" alt="Campanha da Visão" class="campanha-img">
+                    <div class="campanha-overlay"></div>
+                </div>
+                <div class="campanha-conteudo">
+                    <h3>Campanha da Visão</h3>
+                    <p>Exame de vista gratuito. Agende sua avaliação!</p>
+                    <span class="campanha-saiba">Saiba mais →</span>
+                </div>
+            </a>
+
+            <a href="campanhas/diabetes.html" class="campanha-card">
+                <div class="campanha-imagem">
+                    <img src="../img/carddiabete.png" alt="Prevenção ao Diabetes" class="campanha-img">
+                    <div class="campanha-overlay"></div>
+                </div>
+                <div class="campanha-conteudo">
+                    <h3>Prevenção ao Diabetes</h3>
+                    <p>Alimentação e a prevenção ao diabetes: cada refeição pode ser um gesto de cuidado.</p>
+                    <span class="campanha-saiba">Saiba mais →</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DE INFORMAÇÕES ADICIONAIS -->
+    <div class="info-cards">
+        <div class="info-card">
+            <h3>Horário de Funcionamento</h3>
+            <p>Segunda a Sexta: 24h</p>
+            <p>Sábado: 24h</p>
+            <p>Domingo: 24h</p>
+        </div>
+        <div class="info-card">
+            <h3>Contato de Emergência</h3>
+            <p>Telefone: (11) 4002-8922</p>
+            <p>WhatsApp: (11) 99999-9999</p>
+            <p>Email: contato@inovamed.com</p>
+        </div>
+        <div class="info-card">
+            <h3>Unidades</h3>
+            <p>Unidade Central - Av. Paulista, 1000</p>
+            <p>Unidade Zona Sul - R. Vergueiro, 500</p>
+            <p>Unidade Zona Norte - Av. Cruzeiro do Sul, 200</p>
+        </div>
+    </div>
+
+    <!-- RODAPÉ -->
+    <div class="footer">
+        <div style="text-align: center;">
+            <p>InovaMed - Sistema de Gestão Hospitalar</p>
+            <p style="margin-top: 10px;">© 2026 InovaMed. Todos os direitos reservados.</p>
+            <p style="margin-top: 10px;">
+                Desenvolvido por: 
+                <strong>Giovana Soares</strong> | 
+                <strong>Heloisa Soares</strong> | 
+                <strong>Bheatriz Mello</strong>
+            </p>
+            <p style="margin-top: 5px; font-size: 12px;">
+                <a href="termos.html">Termos de Uso</a> | 
+                <a href="privacidade.html">Política de Privacidade</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="../Backend/js/dashboard.js"></script>
+</body>
+</html>

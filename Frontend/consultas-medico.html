@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Consultas | InovaMed</title>
+    <link rel="stylesheet" href="css/consultas-medico.css">
+    <link rel="icon" type="image/x-icon" href="/img/logo.inovamed-removebg-preview (1).png">
+</head>
+<body>
+
+<div class="container">
+    <!-- BARRA SUPERIOR -->
+    <div class="navbar">
+        <div class="logo">
+            InovaMed - Painel do Médico
+        </div>
+        <div class="nav-links">
+            <span id="medicoNome"></span>
+            <a href="../Frontend/dashboard-medico.html"> Dashboard</a>
+            <a href="../Frontend/consultas-medico.html" class="active"> Minhas Consultas</a>
+            <a href="meus-pacientes.html"> Meus Pacientes</a>
+            <a href="../Frontend/login.html" class="logout-btn"> Sair</a>
+        </div>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="main-content">
+        <!-- TÍTULO DA PÁGINA -->
+        <div class="page-header">
+            <h1>Minhas Consultas</h1>
+            <p>Gerencie todas as suas consultas agendadas</p>
+        </div>
+
+        <!-- FILTROS -->
+        <div class="filtros">
+            <div class="filtros-row">
+                <div class="filtro-group">
+                    <label>Período:</label>
+                    <select id="filtroPeriodo">
+                        <option value="hoje">Hoje</option>
+                        <option value="semana">Próximos 7 dias</option>
+                        <option value="mes">Próximos 30 dias</option>
+                        <option value="todas">Todas as consultas</option>
+                    </select>
+                </div>
+                <div class="filtro-group">
+                    <label>Status:</label>
+                    <select id="filtroStatus">
+                        <option value="todas">Todos</option>
+                        <option value="confirmado">Confirmado</option>
+                        <option value="agendado">Agendado</option>
+                        <option value="pendente">Pendente</option>
+                        <option value="realizado">Realizado</option>
+                        <option value="cancelado">Cancelado</option>
+                    </select>
+                </div>
+                <div class="filtro-group">
+                    <label>Buscar:</label>
+                    <input type="text" id="buscaPaciente" placeholder="Nome do paciente...">
+                </div>
+                <button id="btnFiltrar" class="btn-filtrar"> Filtrar</button>
+                <button id="btnLimpar" class="btn-limpar"> Limpar</button>
+            </div>
+        </div>
+
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="proximas"> Próximas Consultas</button>
+            <button class="tab-btn" data-tab="historico"> Histórico</button>
+        </div>
+
+        <!-- TABELA DE PRÓXIMAS CONSULTAS -->
+        <div id="tabProximas" class="tab-content active">
+            <div class="consultas-table-wrapper">
+                <table class="consultas-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Horário</th>
+                            <th>Paciente</th>
+                            <th>Idade</th>
+                            <th>Tipo</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaProximas">
+                        <!-- Dados serão preenchidos via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TABELA DE HISTÓRICO -->
+        <div id="tabHistorico" class="tab-content">
+            <div class="consultas-table-wrapper">
+                <table class="consultas-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Horário</th>
+                            <th>Paciente</th>
+                            <th>Idade</th>
+                            <th>Tipo</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaHistorico">
+                        <!-- Dados serão preenchidos via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- MODAL DE DETALHES -->
+        <div id="modalDetalhes" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Detalhes da Consulta</h3>
+                    <span class="modal-close">&times;</span>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Conteúdo dinâmico -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-fechar-modal">Fechar</button>
+                    <button class="btn-cancelar-consulta" style="display: none;">Cancelar Consulta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RODAPÉ -->
+    <div class="footer">
+        <div style="text-align: center;">
+            <p>InovaMed - Sistema de Gestão Hospitalar</p>
+            <p style="margin-top: 10px;">© 2026 InovaMed. Todos os direitos reservados.</p>
+            <p style="margin-top: 10px;">
+                Desenvolvido por: 
+                <strong>Giovana Soares</strong> | 
+                <strong>Heloisa Soares</strong> | 
+                <strong>Bheatriz Mello</strong>
+            </p>
+            <p style="margin-top: 5px; font-size: 12px;">
+                <a href="termos.html">Termos de Uso</a> | 
+                <a href="privacidade.html">Política de Privacidade</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="../Backend/js/consultas-medico.js"></script>
+</body>
+</html>

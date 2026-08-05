@@ -1,0 +1,1411 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    min-height: 100vh;
+}
+
+
+/* BARRA SUPERIOR */
+
+
+.navbar {
+    background-color: #2c7da0;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.nav-links span {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 16px;
+    border-radius: 30px;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-links a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.logout-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+
+/* CONTAINER PRINCIPAL */
+
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 40px;
+}
+
+
+/* CARDS DE ESTATÍSTICAS */
+
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e8ecef;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+    font-size: 16px;
+    color: #5a6e7c;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.card .numero {
+    font-size: 42px;
+    font-weight: 700;
+    color: #2c7da0;
+    line-height: 1;
+}
+
+
+/* SEÇÕES (CONSULTAS, HORÁRIOS) */
+
+
+.section {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 25px 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e8ecef;
+    transition: transform 0.2s;
+}
+
+.section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+}
+
+.section h2 {
+    font-size: 20px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #2c7da0;
+    display: inline-block;
+}
+
+/* TABELAS */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e8ecef;
+}
+
+th {
+    background-color: #f8fafc;
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+td {
+    font-size: 13px;
+    color: #5a6e7c;
+}
+
+tr:hover td {
+    background-color: #f8fafc;
+}
+
+/* Status dos agendamentos */
+.status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.status.confirmado {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status.agendado {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status.pendente {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.status.realizado {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.status.cancelado {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+
+/* HORÁRIOS DE ATENDIMENTO */
+
+
+#meusHorarios {
+    margin-bottom: 20px;
+}
+
+.horario-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: #f8fafc;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #e8ecef;
+}
+
+.horario-dia {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 14px;
+    min-width: 100px;
+}
+
+.horario-periodo {
+    color: #5a6e7c;
+    font-size: 13px;
+    flex: 1;
+}
+
+.horario-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.horario-status.ativo {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.horario-status.inativo {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Botão Editar */
+button {
+    background: linear-gradient(135deg, #2c7da0 0%, #1f5f7a 100%);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(44, 125, 160, 0.3);
+}
+
+
+/* RESPONSIVIDADE */
+
+
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 15px 30px;
+    }
+    
+    .container {
+        padding: 25px 30px;
+    }
+    
+    .cards {
+        gap: 20px;
+    }
+    
+    .card .numero {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .nav-links {
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .section {
+        padding: 20px;
+    }
+    
+    .section h2 {
+        font-size: 18px;
+    }
+    
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    
+    thead {
+        display: none;
+    }
+    
+    tr {
+        margin-bottom: 15px;
+        border: 1px solid #e8ecef;
+        border-radius: 12px;
+        padding: 10px;
+    }
+    
+    td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 10px;
+        border-bottom: 1px solid #e8ecef;
+        font-size: 12px;
+    }
+    
+    td:last-child {
+        border-bottom: none;
+    }
+    
+    td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #2c3e50;
+        margin-right: 15px;
+    }
+    
+    .horario-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+    
+    .horario-dia {
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 12px 15px;
+    }
+    
+    .logo {
+        font-size: 18px;
+    }
+    
+    .nav-links {
+        flex-wrap: wrap;
+    }
+    
+    .nav-links a, .nav-links span {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+    
+    .container {
+        padding: 15px;
+    }
+    
+    .cards {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .card {
+        padding: 18px 15px;
+    }
+    
+    .card .numero {
+        font-size: 32px;
+    }
+    
+    .card h3 {
+        font-size: 14px;
+    }
+    
+    .section {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .section h2 {
+        font-size: 16px;
+    }
+    
+    button {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+}
+
+
+
+/* ==================== */
+/* MODAL DE ATENDIMENTO - CORRIGIDO */
+/* ==================== */
+
+.modal-atendimento {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-atendimento-content {
+    background-color: #ffffff;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 950px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    animation: modalFadeIn 0.3s ease;
+}
+
+/* Header do modal */
+.modal-atendimento-content .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 2px solid #e8ecef;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-radius: 24px 24px 0 0;
+}
+
+.modal-atendimento-content .modal-header h3 {
+    font-size: 22px;
+    color: #2c3e50;
+    font-weight: 700;
+    margin: 0;
+}
+
+.close-modal {
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #5a6e7c;
+    transition: all 0.2s;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close-modal:hover {
+    color: #e74c3c;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Corpo do modal */
+.modal-atendimento-content .modal-body {
+    padding: 25px;
+}
+
+/* Informações do paciente */
+.info-paciente {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 18px;
+    background: linear-gradient(135deg, #e8f0f5 0%, #d4e4ec 100%);
+    border-radius: 16px;
+    margin-bottom: 25px;
+}
+
+.info-item {
+    font-size: 14px;
+    color: #2c3e50;
+    background: white;
+    padding: 6px 16px;
+    border-radius: 25px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Abas */
+.abas-atendimento {
+    display: flex;
+    gap: 8px;
+    border-bottom: 2px solid #e8ecef;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.aba-btn {
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: #5a6e7c;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 12px 12px 0 0;
+}
+
+.aba-btn:hover {
+    color: #2c7da0;
+    background-color: rgba(44, 125, 160, 0.05);
+}
+
+.aba-btn.active {
+    color: #2c7da0;
+    border-bottom: 3px solid #2c7da0;
+    background-color: rgba(44, 125, 160, 0.08);
+}
+
+/* Conteúdo das abas */
+.aba-conteudo {
+    display: none;
+    padding: 5px 0 25px 0;
+}
+
+.aba-conteudo.active {
+    display: block;
+}
+
+/* Formulário */
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.form-group textarea,
+.form-group input[type="text"],
+.form-group input[type="number"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d0d7de;
+    border-radius: 12px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.2s;
+    background-color: #ffffff;
+}
+
+.form-group textarea:focus,
+.form-group input:focus {
+    outline: none;
+    border-color: #2c7da0;
+    box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Sinais Vitais - Layout em grid */
+.sinais-vitais {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.sinais-vitais input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #d0d7de;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+/* Exames */
+.exames-lista {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+    background-color: #f8fafc;
+    padding: 18px;
+    border-radius: 16px;
+}
+
+.exames-lista label {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.exames-lista label:hover {
+    background-color: rgba(44, 125, 160, 0.05);
+}
+
+.exames-lista input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #2c7da0;
+}
+
+/* Medicamentos */
+.medicamentos-lista {
+    margin-bottom: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 5px;
+    border: 1px solid #e8ecef;
+    border-radius: 12px;
+    background-color: #fafafa;
+}
+
+.medicamento-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #e8ecef;
+}
+
+.medicamento-item input {
+    flex: 1;
+    min-width: 120px;
+    padding: 8px 12px;
+    border: 1px solid #d0d7de;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.btn-remover-med {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-remover-med:hover {
+    background-color: #c82333;
+    transform: scale(1.02);
+}
+
+.btn-adicionar-med {
+    background-color: #2c7da0;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+    width: auto;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.btn-adicionar-med:hover {
+    background-color: #1f5f7a;
+    transform: translateY(-2px);
+}
+
+/* Atestado */
+.atestado-opcoes {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+    background-color: #f8fafc;
+    padding: 15px 20px;
+    border-radius: 12px;
+    flex-wrap: wrap;
+}
+
+.atestado-opcoes label {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.atestado-opcoes input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #2c7da0;
+}
+
+#grupoRepouso {
+    background-color: #fff3cd;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+#grupoRepouso label {
+    margin: 0;
+    font-weight: 600;
+}
+
+#grupoRepouso input {
+    width: 100px;
+    padding: 8px 12px;
+    border: 1px solid #d0d7de;
+    border-radius: 8px;
+}
+
+.btn-gerar-atestado {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s;
+    width: auto;
+    display: inline-block;
+}
+
+.btn-gerar-atestado:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+/* Footer do modal */
+.modal-footer {
+    padding: 20px 25px;
+    border-top: 2px solid #e8ecef;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    position: sticky;
+    bottom: 0;
+    background: white;
+    border-radius: 0 0 24px 24px;
+}
+
+.btn-finalizar {
+    background: linear-gradient(135deg, #2c7da0 0%, #1f5f7a 100%);
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-finalizar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(44, 125, 160, 0.4);
+}
+
+.btn-cancelar-atendimento {
+    background-color: #f0f2f5;
+    color: #5a6e7c;
+    border: 1px solid #d0d7de;
+    padding: 12px 32px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-cancelar-atendimento:hover {
+    background-color: #e8ecef;
+    transform: translateY(-2px);
+}
+
+/* Animação */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Rolagem personalizada */
+.modal-atendimento-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-atendimento-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.modal-atendimento-content::-webkit-scrollbar-thumb {
+    background: #2c7da0;
+    border-radius: 10px;
+}
+
+.modal-atendimento-content::-webkit-scrollbar-thumb:hover {
+    background: #1f5f7a;
+}
+
+/* ==================== */
+/* RESPONSIVIDADE DO MODAL */
+/* ==================== */
+
+@media (max-width: 768px) {
+    .modal-atendimento-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+    
+    .exames-lista {
+        grid-template-columns: 1fr;
+        max-height: 250px;
+        overflow-y: auto;
+    }
+    
+    .sinais-vitais {
+        grid-template-columns: 1fr;
+    }
+    
+    .medicamento-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .medicamento-item input {
+        width: 100%;
+    }
+    
+    .info-paciente {
+        gap: 10px;
+    }
+    
+    .info-item {
+        font-size: 12px;
+        padding: 4px 12px;
+    }
+    
+    .aba-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-finalizar,
+    .btn-cancelar-atendimento {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .atestado-opcoes {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    #grupoRepouso {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-atendimento-content .modal-header h3 {
+        font-size: 18px;
+    }
+    
+    .aba-btn {
+        flex: 1;
+        text-align: center;
+        padding: 8px 5px;
+        font-size: 11px;
+    }
+    
+    .form-group label {
+        font-size: 12px;
+    }
+    
+    .form-group textarea,
+    .form-group input {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
+    .info-item {
+        font-size: 11px;
+    }
+}
+
+
+
+
+
+/* ==================== */
+/* ALERTAS PERSONALIZADOS */
+/* ==================== */
+
+.alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.alert-container {
+    background-color: #ffffff;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 450px;
+    overflow: hidden;
+    animation: modalFadeIn 0.3s ease;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+.alert-container.sucesso .alert-header {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+}
+
+.alert-container.erro .alert-header {
+    background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%);
+}
+
+.alert-container.info .alert-header {
+    background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%);
+}
+
+.alert-container.alerta .alert-header {
+    background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+}
+
+.alert-header {
+    padding: 20px 25px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.alert-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+}
+
+.alert-header .alert-icon {
+    font-size: 28px;
+}
+
+.alert-body {
+    padding: 25px;
+    text-align: center;
+    color: #2c3e50;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.alert-body p {
+    margin-bottom: 10px;
+}
+
+.alert-detalhes {
+    font-size: 13px;
+    color: #5a6e7c;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e8ecef;
+    text-align: left;
+    background-color: #f8fafc;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.alert-footer {
+    padding: 15px 25px;
+    border-top: 1px solid #e8ecef;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn-alert {
+    padding: 10px 30px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    background: linear-gradient(135deg, #2c7da0 0%, #1f5f7a 100%);
+    color: white;
+}
+
+.btn-alert:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(44, 125, 160, 0.3);
+}
+
+.alert-container.confirmacao .alert-footer {
+    justify-content: center;
+    gap: 15px;
+}
+
+/* ==================== */
+/* ESTILOS DOS BOTÕES DE CONFIRMAÇÃO 
+/* ==================== */
+
+.btn-confirmar-sim {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 100px;
+}
+
+.btn-confirmar-sim:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+}
+
+.btn-confirmar-nao {
+    background-color: #f0f2f5;
+    color: #f0f2f5;  
+    border: 1px solid #d0d7de;
+    padding: 10px 30px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 100px;
+}
+
+.btn-confirmar-nao:hover {
+    background-color: #e8ecef;
+    transform: translateY(-2px);
+}
+
+.btn-cancelar-atendimento {
+    background-color: #f0f2f5;
+    color: #f7fcff;
+    border: 1px solid #d0d7de;
+    padding: 12px 32px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-cancelar-atendimento:hover {
+    background-color: #e8ecef;
+    transform: translateY(-2px);
+}
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 480px) {
+    .alert-container {
+        width: 95%;
+    }
+    
+    .alert-header h3 {
+        font-size: 16px;
+    }
+    
+    .alert-body {
+        padding: 20px;
+        font-size: 14px;
+    }
+    
+    .btn-alert,
+    .btn-confirmar-sim,
+    .btn-confirmar-nao {
+        padding: 8px 20px;
+        font-size: 13px;
+    }
+}
+
+
+/* ==================== */
+/* MODAL DE EDIÇÃO DE HORÁRIOS */
+/* ==================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+    animation: modalFadeIn 0.3s ease;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #e8ecef;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+}
+
+.modal-header h3 {
+    font-size: 20px;
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.modal-close {
+    font-size: 28px;
+    cursor: pointer;
+    color: #ffffff;
+    transition: color 0.2s;
+}
+
+.modal-close:hover {
+    color: #e74c3c;
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+.modal-footer {
+    padding: 20px 25px;
+    border-top: 1px solid #e8ecef;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    position: sticky;
+    bottom: 0;
+    background: white;
+    border-radius: 0 0 20px 20px;
+}
+
+/* Itens de edição de horários */
+.horario-edicao-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background-color: #f8fafc;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #e8ecef;
+}
+
+.horario-edicao-dia {
+    width: 120px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.horario-edicao-periodo {
+    flex: 1;
+}
+
+.horario-edicao-periodo input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d0d7de;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.horario-edicao-status {
+    width: 100px;
+}
+
+.horario-edicao-status select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d0d7de;
+    border-radius: 8px;
+    font-size: 13px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.btn-salvar {
+    background: linear-gradient(135deg, #2c7da0 0%, #1f5f7a 100%);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-salvar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(44, 125, 160, 0.3);
+}
+
+.btn-cancelar-modal {
+    background-color: #f0f2f5;
+    color: #ffffff;
+    border: 1px solid #d0d7de;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-cancelar-modal:hover {
+    background-color: #e8ecef;
+    transform: translateY(-2px);
+}
+
+/* Responsividade do modal de horários */
+@media (max-width: 768px) {
+    .horario-edicao-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .horario-edicao-dia {
+        width: auto;
+    }
+    
+    .horario-edicao-status {
+        width: auto;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+    }
+    
+    .btn-salvar,
+    .btn-cancelar-modal {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Link ativo na barra de navegação */
+.nav-links a.active {
+    background: rgba(255, 255, 255, 0.25);
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 6px;
+}
+
+/* ==================== */
+/* RODAPÉ 
+/* ==================== */
+
+.footer {
+    background: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 100%);
+    color: white;
+    padding: 30px 0;
+    margin-top: 40px;
+    width: 100%;
+    text-align: center;
+}
+
+.footer a {
+    color: #f0b400;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+    color: #ffd700;
+}
+
+/* Responsividade do rodapé */
+@media (max-width: 768px) {
+    .footer {
+        padding: 20px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 15px;
+        font-size: 12px;
+    }
+}
