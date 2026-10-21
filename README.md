@@ -149,8 +149,6 @@ Você pode publicar o projeto gratuitamente com **GitHub Pages**:
 
 Depois é só acessar: `https://giovana-v.github.io/TCC-InovaMed/Frontend/paginicial.html`
 
-> _Link da demo: em breve._
-
 ---
 
 ## Estrutura do projeto
