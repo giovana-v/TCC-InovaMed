@@ -141,13 +141,7 @@ Frontend/paginicial.html
 
 ## Demo ao vivo
 
-Você pode publicar o projeto gratuitamente com **GitHub Pages**:
-
-1. No GitHub, vá em **Settings → Pages**
-2. Em _Source_, selecione a branch `main` e a pasta `/root`
-3. Salve — em instantes o site estará no ar
-
-Depois é só acessar: `https://giovana-v.github.io/TCC-InovaMed/Frontend/paginicial.html`
+Acesse no link: `https://giovana-v.github.io/TCC-InovaMed/Frontend/paginicial.html`
 
 ---
 
