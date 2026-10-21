@@ -1,9 +1,13 @@
+// Tela de cadastro/registro de usuários do InovaMed (plataforma de gestão em saúde).
+// Valida os dados do formulário e salva os usuários no localStorage do navegador.
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Sistema de registro iniciado');
-    
+
+    // Referência ao formulário de registro
     const form = document.getElementById('form-registro');
 
-    //criando os elementos para cadastrar no formulário
+    // Referências aos campos do formulário de cadastro
     const nome = document.getElementById('nome');
     const email = document.getElementById('email');
     const senha = document.getElementById('senha');
@@ -13,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const crm = document.getElementById('crm');
     const campoCRM = document.getElementById('campoCRM');
 
-    // FUNÇÃO PARA VER USUÁRIOS CADASTRADOS (NOVA)
+    // Lista no console e em um alerta todos os usuários já cadastrados
     window.mostrarUsuariosCadastrados = function() {
         const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
         
@@ -35,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return usuarios;
     }
 
-    // FUNÇÃO PARA LIMPAR TODOS OS USUÁRIOS (NOVA)
+    // Remove do localStorage todos os usuários cadastrados, mediante confirmação
     window.limparTodosUsuarios = function() {
         if(confirm('⚠️ Isso vai apagar TODOS os usuários cadastrados. Continuar?')) {
             localStorage.removeItem('usuarios');
@@ -45,13 +49,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    //mensagem de erro pra quando o usuario burro colocar algo errado aparecer bonitinho a mensagem na tela
+    // Exibe uma mensagem de erro amigável abaixo do campo quando o usuário preenche algo incorretamente
     function criarMensagemErro(campo, texto) {
-        //remove mensagem existente
+        // Remove mensagem existente
         const msgExistente = campo.parentNode.querySelector('.msg-erro');
         if (msgExistente) msgExistente.remove();
-        
-        //criador de nova mensagens
+
+        // Cria a nova mensagem de erro
         const msg = document.createElement('div');
         msg.className = 'msg-erro';
         msg.textContent = texto;
@@ -67,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
         campo.style.borderWidth = '2px';
     }
     
+    // Remove a mensagem de erro de um campo e restaura seu estilo original
     function removerMensagemErro(campo) {
         const msgExistente = campo.parentNode.querySelector('.msg-erro');
         if (msgExistente) msgExistente.remove();
@@ -74,12 +79,13 @@ document.addEventListener('DOMContentLoaded', function() {
         campo.style.borderWidth = '';
     }
     
+    // Destaca o campo em verde para indicar que foi preenchido corretamente
     function mostrarSucesso(campo) {
         campo.style.borderColor = '#28a745';
         campo.style.borderWidth = '2px';
     }
     
-    // FUNÇÃO DE MENSAGEM GERAL
+    // Exibe uma mensagem geral de erro ou sucesso no topo do formulário
     function mostrarMensagemGeral(texto, tipo) {
         // Remove mensagem existente
         const msgExistente = document.querySelector('.msg-geral');
@@ -108,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    //validador de senhas 
+    // Valida em tempo real se a confirmação de senha coincide com a senha digitada
     confirmarSenha.addEventListener('input', function() {
         if (senha.value !== confirmarSenha.value) {
             criarMensagemErro(confirmarSenha, 'As senhas não coincidem');
@@ -121,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // Revalida a confirmação de senha sempre que o campo de senha é alterado
     senha.addEventListener('input', function() {
         if (confirmarSenha.value && senha.value !== confirmarSenha.value) {
             criarMensagemErro(confirmarSenha, 'As senhas não coincidem');
@@ -133,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    //login do médico vai verificar se existe né
+    // Exibe ou oculta o campo de CRM conforme o usuário escolhe médico ou paciente
     if (tipoMedico && tipoPaciente && campoCRM) {
         tipoMedico.addEventListener('change', function() {
             campoCRM.style.display = 'block';
@@ -144,6 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Valida todos os campos no envio e, se estiverem corretos, cadastra o novo usuário
     form.addEventListener('submit', function(event) {
         event.preventDefault();
         
@@ -225,10 +233,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // ==============================================
-        // SE CHEGOU AQUI, TUDO ESTÁ VÁLIDO
-        // ==============================================
-        
+        // Todos os campos foram validados: cria e salva o novo usuário
+
         // Criar usuário
         const novoUsuario = {
             id: Date.now(), // Usando timestamp para ID único
@@ -264,10 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 2000);
     });
     
-    // ==============================================
-    // FUNÇÃO AUXILIAR
-    // ==============================================
-    
+    // Verifica se o e-mail informado tem um formato válido
     function validarEmail(email) {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);

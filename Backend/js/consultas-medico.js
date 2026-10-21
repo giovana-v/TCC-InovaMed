@@ -1,10 +1,8 @@
+// Tela "Minhas Consultas" do medico no InovaMed.
+// Monta a agenda do medico, lista as consultas e permite ver detalhes e cancelar.
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // ==================== //
-    // NOTIFICAÇÕES PERSONALIZADAS //
-    // ==================== //
-    
-    // Função para mostrar confirmação personalizada
+
+    // Exibe uma caixa de confirmacao personalizada com acoes de confirmar e cancelar.
     function mostrarConfirmacaoPersonalizada(titulo, mensagem, onConfirm, onCancel) {
         const overlayExistente = document.querySelector('.confirmacao-overlay');
         if (overlayExistente) overlayExistente.remove();
@@ -40,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Função para mostrar alerta personalizado
+    // Exibe um alerta personalizado de sucesso, erro ou informacao com fechamento automatico.
     function mostrarAlertaPersonalizado(titulo, mensagem, tipo) {
         const overlayExistente = document.querySelector('.alerta-overlay');
         if (overlayExistente) overlayExistente.remove();
@@ -87,10 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
     
-    // ==================== //
-    // ESTILOS DAS NOTIFICAÇÕES //
-    // ==================== //
-    
+    // Estilos das notificacoes (confirmacoes e alertas) injetados dinamicamente na pagina.
     const estilosNotificacoes = document.createElement('style');
     estilosNotificacoes.textContent = `
         .confirmacao-overlay {
@@ -279,28 +274,27 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(estilosNotificacoes);
     
-    // ==================== //
-    // DADOS DE EXEMPLO     //
-    // ==================== //
-    
-    // Exibir nome do médico
+    // Dados de exemplo usados para simular a agenda do medico.
+    // Exibe o nome do medico logado no cabecalho da pagina.
     const medicoNomeSpan = document.getElementById('medicoNome');
     if (medicoNomeSpan) {
         medicoNomeSpan.innerHTML = `Dr. Carlos Silva`;
     }
     
-    // Data atual para referência
+    // Data atual usada como referencia para montar as datas das consultas.
     const hoje = new Date();
     const ano = hoje.getFullYear();
     const mes = hoje.getMonth();
     const dia = hoje.getDate();
-    
+
+    // Formata dia, mes e ano no padrao DD/MM/AAAA.
     function formatarData(d, m, a) {
         return `${d.toString().padStart(2, '0')}/${(m+1).toString().padStart(2, '0')}/${a}`;
     }
     
+    // Lista de consultas do medico (base de dados simulada da agenda).
     const consultas = [
-        // Consultas de HOJE
+        // Consultas de hoje
         { id: 1, data: formatarData(dia, mes, ano), horario: '08:00', paciente: 'Ana Beatriz Souza', idade: 34, tipo: 'Consulta', status: 'confirmado', telefone: '(11) 98765-4321', email: 'ana.souza@email.com', convenio: 'Unimed', observacoes: 'Paciente com dores de cabeça frequentes' },
         { id: 2, data: formatarData(dia, mes, ano), horario: '09:30', paciente: 'Carlos Eduardo Lima', idade: 45, tipo: 'Retorno', status: 'confirmado', telefone: '(11) 91234-5678', email: 'carlos.lima@email.com', convenio: 'Amil', observacoes: 'Acompanhamento de hipertensão' },
         { id: 3, data: formatarData(dia, mes, ano), horario: '11:00', paciente: 'Fernanda Oliveira', idade: 28, tipo: 'Consulta', status: 'pendente', telefone: '(11) 99876-5432', email: 'fernanda.oliveira@email.com', convenio: 'SulAmérica', observacoes: 'Primeira consulta - dor abdominal' },
@@ -331,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 18, data: formatarData(24, mes, ano), horario: '15:00', paciente: 'Anderson Ferreira', idade: 47, tipo: 'Exame', status: 'agendado', telefone: '(11) 95678-9012', email: 'anderson.ferreira@email.com', convenio: 'SulAmérica', observacoes: 'Check-up cardiológico' },
         { id: 19, data: formatarData(24, mes, ano), horario: '16:30', paciente: 'Juliana Rocha', idade: 35, tipo: 'Consulta', status: 'pendente', telefone: '(11) 96789-0123', email: 'juliana.rocha@email.com', convenio: 'Bradesco Saúde', observacoes: 'Sintomas de gripe' },
         
-        // Consultas de AMANHÃ
+        // Consultas de amanha
         { id: 20, data: formatarData(dia + 1, mes, ano), horario: '14:00', paciente: 'Roberto Alves', idade: 52, tipo: 'Exame', status: 'agendado', telefone: '(11) 97654-3210', email: 'roberto.alves@email.com', convenio: 'Bradesco Saúde', observacoes: 'Resultado de exames de rotina' },
         { id: 21, data: formatarData(dia + 1, mes, ano), horario: '15:30', paciente: 'Patrícia Mendes', idade: 39, tipo: 'Retorno', status: 'agendado', telefone: '(11) 96543-2109', email: 'patricia.mendes@email.com', convenio: 'Unimed', observacoes: 'Controle de diabetes' },
         
@@ -340,19 +334,24 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 23, data: formatarData(dia - 10, mes, ano), horario: '14:30', paciente: 'Maria Aparecida Souza', idade: 55, tipo: 'Retorno', status: 'realizado', telefone: '(11) 97654-3219', email: 'maria.souza@email.com', convenio: 'Amil', observacoes: 'Retorno agendado - exames ok' }
     ];
     
+    // Guarda as consultas apos aplicar os filtros de periodo, status e busca.
     let consultasFiltradas = [...consultas];
+    // Referencia a consulta aberta no modal de detalhes.
     let consultaAtual = null;
-    
+
+    // Retorna a classe CSS de estilo correspondente ao status da consulta.
     function getStatusClass(status) {
         const classes = { 'confirmado': 'status-confirmado', 'agendado': 'status-agendado', 'pendente': 'status-pendente', 'realizado': 'status-realizado', 'cancelado': 'status-cancelado' };
         return classes[status] || 'status-pendente';
     }
     
+    // Retorna o texto exibido ao usuario para o status da consulta.
     function getStatusText(status) {
         const textos = { 'confirmado': 'Confirmado', 'agendado': 'Agendado', 'pendente': 'Pendente', 'realizado': 'Realizado', 'cancelado': 'Cancelado' };
         return textos[status] || status;
     }
     
+    // Monta a tabela das proximas consultas (futuras e ainda nao realizadas).
     function renderizarProximas() {
         const tbody = document.getElementById('tabelaProximas');
         if (!tbody) return;
@@ -391,6 +390,7 @@ document.addEventListener('DOMContentLoaded', function() {
         adicionarEventosBotoes();
     }
     
+    // Monta a tabela do historico de consultas (passadas, realizadas ou canceladas).
     function renderizarHistorico() {
         const tbody = document.getElementById('tabelaHistorico');
         if (!tbody) return;
@@ -428,6 +428,7 @@ document.addEventListener('DOMContentLoaded', function() {
         adicionarEventosBotoes();
     }
     
+    // Vincula os eventos de clique aos botoes de detalhes e cancelar das tabelas.
     function adicionarEventosBotoes() {
         document.querySelectorAll('.btn-detalhes').forEach(btn => {
             btn.removeEventListener('click', handleDetalhes);
@@ -440,12 +441,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Abre o modal com os detalhes da consulta selecionada.
     function handleDetalhes(e) {
         const id = parseInt(e.target.getAttribute('data-id'));
         const consulta = consultas.find(c => c.id === id);
         if (consulta) abrirModal(consulta);
     }
     
+    // Pede confirmacao e cancela a consulta selecionada diretamente na tabela.
     function handleCancelar(e) {
         const id = parseInt(e.target.getAttribute('data-id'));
         const consulta = consultas.find(c => c.id === id);
@@ -466,6 +469,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Preenche e exibe o modal com todas as informacoes da consulta.
     function abrirModal(consulta) {
         const modal = document.getElementById('modalDetalhes');
         const modalBody = document.getElementById('modalBody');
@@ -495,12 +499,14 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.style.display = 'flex';
     }
     
+    // Fecha o modal de detalhes e limpa a consulta em exibicao.
     function fecharModal() {
         const modal = document.getElementById('modalDetalhes');
         if (modal) modal.style.display = 'none';
         consultaAtual = null;
     }
     
+    // Pede confirmacao e cancela a consulta aberta no modal de detalhes.
     function cancelarConsultaDoModal() {
         if (consultaAtual) {
             mostrarConfirmacaoPersonalizada(
@@ -520,6 +526,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Filtra as consultas por periodo, status e nome do paciente e atualiza a aba ativa.
     function aplicarFiltros() {
         const periodo = document.getElementById('filtroPeriodo').value;
         const statusFiltro = document.getElementById('filtroStatus').value;
@@ -552,6 +559,7 @@ document.addEventListener('DOMContentLoaded', function() {
         else renderizarHistorico();
     }
     
+    // Restaura os filtros para o estado inicial e recarrega a aba ativa.
     function limparFiltros() {
         document.getElementById('filtroPeriodo').value = 'todas';
         document.getElementById('filtroStatus').value = 'todas';
@@ -563,6 +571,7 @@ document.addEventListener('DOMContentLoaded', function() {
         else renderizarHistorico();
     }
     
+    // Controla a troca entre as abas "Proximas" e "Historico".
     function initTabs() {
         const tabBtns = document.querySelectorAll('.tab-btn');
         const tabProximas = document.getElementById('tabProximas');
@@ -587,12 +596,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Registra os eventos dos botoes de filtro e do modal de detalhes.
     document.getElementById('btnFiltrar')?.addEventListener('click', aplicarFiltros);
     document.getElementById('btnLimpar')?.addEventListener('click', limparFiltros);
     document.querySelector('.modal-close')?.addEventListener('click', fecharModal);
     document.querySelector('.btn-fechar-modal')?.addEventListener('click', fecharModal);
     document.querySelector('.btn-cancelar-consulta')?.addEventListener('click', cancelarConsultaDoModal);
     
+    // Inicializa as abas e renderiza as tabelas ao carregar a pagina.
     initTabs();
     renderizarProximas();
     renderizarHistorico();

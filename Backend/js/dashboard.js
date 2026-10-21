@@ -1,9 +1,9 @@
+// Dashboard do paciente da plataforma InovaMed.
+// Controla o usuário logado, o carrossel de campanhas e o agendamento de consultas.
+
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // ==================== //
-    // USUÁRIO LOGADO - NOME AUTOMÁTICO //
-    // ==================== //
-    
+
+    // Define o usuário logado padrão exibido no painel do paciente
     let usuarioLogado = {
         nome: 'Giovana Soares',
         tipo: 'Paciente',
@@ -19,10 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('usuario_logado', JSON.stringify(usuarioLogado));
     }
     
-    // ==================== //
-    // ATUALIZAR INTERFACE COM NOME DO USUÁRIO //
-    // ==================== //
-    
+    // Preenche a interface (avatar, nome, boas-vindas e campo do paciente) com os dados do usuário logado
     function atualizarInterfaceComUsuarioLogado() {
         // Atualizar avatar
         const profileAvatar = document.getElementById('profileAvatar');
@@ -43,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             welcomeMessage.textContent = `Bem-vindo, ${usuarioLogado.nome}!`;
         }
         
-        // ATUALIZAR CAMPO DE NOME DO PACIENTE (READONLY)
+        // Preenche o campo de nome do paciente como somente leitura
         const patientNameInput = document.getElementById('patientName');
         if (patientNameInput) {
             patientNameInput.value = usuarioLogado.nome;
@@ -51,10 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // ==================== //
-    // CARROSSEL DE IMAGENS  //
-    // ==================== //
-    
+    // Carrossel de campanhas de saúde exibido na página inicial do paciente
     const slides = document.querySelectorAll('.carousel-slide');
     const dots = document.querySelectorAll('.dot');
     const carouselContainer = document.querySelector('.carousel-container');
@@ -65,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let isPlaying = true;
         const intervalTime = 4000;
         
+        // Exibe o slide e o indicador correspondentes ao índice informado
         function showSlide(index) {
             slides.forEach(slide => slide.classList.remove('active'));
             dots.forEach(dot => dot.classList.remove('active'));
@@ -72,16 +67,19 @@ document.addEventListener('DOMContentLoaded', function() {
             if (dots[index]) dots[index].classList.add('active');
         }
         
+        // Avança para o próximo slide do carrossel
         function nextSlide() {
             currentSlide = (currentSlide + 1) % slides.length;
             showSlide(currentSlide);
         }
         
+        // Inicia a troca automática de slides em intervalos regulares
         function startCarousel() {
             if (interval) clearInterval(interval);
             interval = setInterval(() => { if (isPlaying) nextSlide(); }, intervalTime);
         }
         
+        // Interrompe a troca automática de slides
         function stopCarousel() {
             if (interval) { clearInterval(interval); interval = null; }
         }
@@ -104,10 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
         startCarousel();
     }
     
-    // ==================== //
-    // ALERTA PERSONALIZADO  //
-    // ==================== //
-    
+    // Exibe um alerta visual personalizado (sucesso, erro, aviso ou informação) para o paciente
     function mostrarAlertaPersonalizado(titulo, mensagem, tipo, detalhes) {
         const alertExistente = document.querySelector('.custom-alert-overlay');
         if (alertExistente) alertExistente.remove();
@@ -144,10 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 4000);
     }
     
-    // ==================== //
-    // MAPA DE MÉDICOS POR ESPECIALIDADE //
-    // ==================== //
-    
+    // Mapa de médicos disponíveis para cada especialidade oferecida no agendamento
     const medicosPorEspecialidade = {
         'Clínica Geral': [
             { nome: 'Dr. Carlos Silva', crm: '12345-SP' },
@@ -178,12 +170,10 @@ document.addEventListener('DOMContentLoaded', function() {
         ]
     };
     
-    // ==================== //
-    // FUNÇÃO PARA MARCAR CONSULTA //
-    // ==================== //
-    
+    // Lista de consultas agendadas mantida em memória e sincronizada com o localStorage
     let consultasAgendadas = [];
-    
+
+    // Carrega as consultas do localStorage ou cria consultas de exemplo na primeira execução
     function carregarConsultas() {
         const saved = localStorage.getItem('consultas_agendadas');
         if (saved) {
@@ -200,6 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
         renderizarConsultas();
     }
     
+    // Converte um objeto Date para o formato de exibição dd/mm/aaaa
     function formatarDataParaExibir(data) {
         const dia = data.getDate().toString().padStart(2, '0');
         const mes = (data.getMonth() + 1).toString().padStart(2, '0');
@@ -207,10 +198,12 @@ document.addEventListener('DOMContentLoaded', function() {
         return `${dia}/${mes}/${ano}`;
     }
     
+    // Persiste a lista de consultas agendadas no localStorage
     function salvarConsultas() {
         localStorage.setItem('consultas_agendadas', JSON.stringify(consultasAgendadas));
     }
     
+    // Cria uma nova consulta para o paciente logado, salva e atualiza a tabela
     function adicionarConsulta(novaConsulta) {
         const novoId = consultasAgendadas.length > 0 ? Math.max(...consultasAgendadas.map(c => c.id)) + 1 : 1;
         const consulta = {
@@ -220,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
             medico: novaConsulta.medico,
             especialidade: novaConsulta.especialidade,
             status: 'agendado',
-            paciente: usuarioLogado.nome  // USA O NOME DO USUÁRIO LOGADO
+            paciente: usuarioLogado.nome  // associa a consulta ao usuário logado
         };
         consultasAgendadas.push(consulta);
         salvarConsultas();
@@ -228,6 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return consulta;
     }
     
+    // Monta a tabela de consultas futuras do paciente logado, ordenadas por data
     function renderizarConsultas() {
         const tbody = document.getElementById('tabelaConsultasBody');
         if (!tbody) return;
@@ -235,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const hoje = new Date();
         hoje.setHours(0, 0, 0, 0);
         
-        // FILTRA APENAS CONSULTAS DO USUÁRIO LOGADO
+        // Filtra apenas as consultas futuras e não canceladas do usuário logado
         const consultasFuturas = consultasAgendadas.filter(c => {
             const [dia, mes, ano] = c.data.split('/');
             const dataConsulta = new Date(ano, mes - 1, dia);
@@ -293,14 +287,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // ==================== //
-    // FORMULÁRIO DE MARCAÇÃO  //
-    // ==================== //
-    
+    // Formulário de marcação de consultas e seus campos de especialidade e médico
     const form = document.getElementById('appointmentForm');
     const especialidadeSelect = document.getElementById('appointmentType');
     const medicoSelect = document.getElementById('doctorName');
     
+    // Preenche o seletor de médicos conforme a especialidade escolhida no formulário
     function atualizarMedicosPorEspecialidade() {
         const especialidade = especialidadeSelect.value;
         
@@ -333,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // USA O NOME DO USUÁRIO LOGADO (campo readonly)
+            // Usa o nome do usuário logado, já que o campo é somente leitura
             const paciente = usuarioLogado.nome;
             const data = document.getElementById('appointmentDate').value;
             const horario = document.getElementById('appointmentTime').value;
@@ -394,7 +386,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 observacoes: observacoes
             });
             
-            // Limpar formulário (campo nome permanece com o nome do usuário)
+            // Limpa o formulário mantendo o nome do paciente preenchido
             document.getElementById('appointmentDate').value = '';
             document.getElementById('appointmentTime').value = '';
             medicoSelect.innerHTML = '<option value="">Selecione primeiro uma especialidade...</option>';
@@ -407,7 +399,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // INICIALIZAÇÃO
+    // Inicializa o painel: carrega os dados do usuário e as consultas agendadas
     atualizarInterfaceComUsuarioLogado();
     carregarConsultas();
     

@@ -1,15 +1,15 @@
+// Tela "Meus Pacientes" do InovaMed, usada pelo médico.
+// Lista os pacientes e exibe histórico clínico e laudos em modais, com busca, ordenação e filtros.
+
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // Exibir nome do médico
+
+    // Exibe o nome do médico logado no cabeçalho
     const medicoNomeSpan = document.getElementById('medicoNome');
     if (medicoNomeSpan) {
         medicoNomeSpan.innerHTML = `Dr. Carlos Silva`;
     }
     
-    // ==================== //
-    // DADOS DE EXEMPLO - PACIENTES //
-    // ==================== //
-    
+    // Dados de exemplo dos pacientes exibidos na tela, com histórico e laudos de cada um
     const pacientes = [
         {
             id: 1,
@@ -178,10 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
     
-    // ==================== //
-    // FUNÇÕES DE RENDERIZAÇÃO //
-    // ==================== //
-    
+    // Monta os cards de pacientes na tela aplicando a busca e a ordenação selecionadas
     function renderizarPacientes() {
         const container = document.getElementById('pacientesGrid');
         if (!container) return;
@@ -247,6 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
         adicionarEventosPacientes();
     }
     
+    // Liga os botões de cada card para abrir os modais de histórico e de laudos do paciente
     function adicionarEventosPacientes() {
         document.querySelectorAll('.btn-ver-detalhes').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -265,10 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // ==================== //
-    // MODAL DE HISTÓRICO   //
-    // ==================== //
-    
+    // Abre o modal com as informações e o histórico de consultas do paciente
     function abrirModalHistorico(paciente) {
         const modal = document.getElementById('modalPaciente');
         const modalTitulo = document.getElementById('modalTitulo');
@@ -316,10 +311,7 @@ document.addEventListener('DOMContentLoaded', function() {
         modalBody.innerHTML = html;
     }
     
-    // ==================== //
-    // MODAL DE LAUDOS      //
-    // ==================== //
-    
+    // Abre o modal com os laudos e exames do paciente e seus respectivos status
     function abrirModalLaudos(paciente) {
         const modal = document.getElementById('modalPaciente');
         const modalTitulo = document.getElementById('modalTitulo');
@@ -350,29 +342,25 @@ document.addEventListener('DOMContentLoaded', function() {
         modalBody.innerHTML = html;
     }
     
-    // ==================== //
-    // FILTROS              //
-    // ==================== //
-    
+    // Reaplica a busca e a ordenação, atualizando a lista de pacientes
     function aplicarFiltros() {
         renderizarPacientes();
     }
-    
+
+    // Limpa os campos de busca e ordenação e recarrega a lista de pacientes
     function limparFiltros() {
         document.getElementById('buscaPaciente').value = '';
         document.getElementById('ordenarPor').value = 'nome';
         renderizarPacientes();
     }
     
+    // Fecha o modal de histórico ou de laudos
     function fecharModal() {
         const modal = document.getElementById('modalPaciente');
         if (modal) modal.style.display = 'none';
     }
     
-    // ==================== //
-    // INICIALIZAÇÃO        //
-    // ==================== //
-    
+    // Registra os eventos dos botões e carrega a lista de pacientes ao abrir a tela
     document.getElementById('btnFiltrar')?.addEventListener('click', aplicarFiltros);
     document.getElementById('btnLimpar')?.addEventListener('click', limparFiltros);
     document.querySelector('.modal-close')?.addEventListener('click', fecharModal);

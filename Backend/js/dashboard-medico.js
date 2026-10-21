@@ -1,10 +1,12 @@
-// Aguarda o DOM carregar completamente
+// Dashboard do médico do InovaMed (plataforma de gestão em saúde).
+// Controla alertas, modais de atendimento, edição de horários e renderização das listas de consultas do painel.
+
+// Aguarda o DOM carregar completamente antes de inicializar o painel
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // ==================== //
-    // ALERTAS PERSONALIZADOS //
-    // ==================== //
-    
+
+    // Alertas personalizados exibidos em modal no lugar dos pop-ups padrão do navegador
+
+    // Exibe um alerta simples em modal com título, mensagem, tipo e callback opcional ao confirmar
     function mostrarAlerta(titulo, mensagem, tipo, callback) {
         const alertExistente = document.querySelector('.alert-overlay');
         if (alertExistente) alertExistente.remove();
@@ -38,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.insertAdjacentHTML('beforeend', alertHTML);
     }
     
+    // Exibe um alerta em modal com um bloco adicional de detalhes em HTML
     function mostrarAlertaComDetalhes(titulo, mensagem, detalhes, tipo) {
         const alertExistente = document.querySelector('.alert-overlay');
         if (alertExistente) alertExistente.remove();
@@ -73,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.insertAdjacentHTML('beforeend', alertHTML);
     }
     
-    // FUNÇÃO DE CONFIRMAÇÃO COM BARRA AZUL
+    // Exibe um diálogo de confirmação (Sim/Não) com callbacks de confirmar e cancelar
     function mostrarConfirmacao(titulo, mensagem, onConfirm, onCancel) {
         const alertExistente = document.querySelector('.alert-overlay');
         if (alertExistente) alertExistente.remove();
@@ -196,10 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // ==================== //
-    // DADOS DO MÉDICO      //
-    // ==================== //
-    
+    // Dados do médico logado exibidos no painel e usados em atestados
     const medico = {
         nome: 'Dr. Carlos Silva',
         especialidade: 'Cardiologia',
@@ -211,10 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
         medicoNomeSpan.innerHTML = ` ${medico.nome}`;
     }
     
-    // ==================== //
-    // DADOS DE EXEMPLO     //
-    // ==================== //
-    
+    // Consultas agendadas para o dia atual exibidas na tabela principal
     const consultasHoje = [
         { horario: '08:00', paciente: 'João Silva', idade: 45, telefone: '(11) 98765-4321', tipo: 'Consulta', status: 'confirmado' },
         { horario: '09:30', paciente: 'Maria Santos', idade: 32, telefone: '(11) 91234-5678', tipo: 'Retorno', status: 'confirmado' },
@@ -224,6 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { horario: '17:00', paciente: 'Fernanda Lima', idade: 41, telefone: '(11) 95432-1098', tipo: 'Consulta', status: 'confirmado' }
     ];
     
+    // Consultas futuras exibidas na seção de próximas consultas
     const proximasConsultas = [
         { data: '17/06/2026', horario: '10:00', paciente: 'Fernanda Lima', tipo: 'Consulta', status: 'agendado' },
         { data: '19/06/2026', horario: '14:30', paciente: 'Ricardo Alves', tipo: 'Retorno', status: 'agendado' },
@@ -233,6 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { data: '28/06/2026', horario: '08:30', paciente: 'Roberto Santos', tipo: 'Retorno', status: 'agendado' }
     ];
     
+    // Horários de atendimento por dia da semana, editáveis e persistidos no navegador
     let horariosAtendimento = [
         { dia: 'Segunda-feira', periodo: '08:00 - 12:00 | 14:00 - 18:00', status: 'ativo' },
         { dia: 'Terça-feira', periodo: '08:00 - 12:00 | 14:00 - 18:00', status: 'ativo' },
@@ -243,19 +242,20 @@ document.addEventListener('DOMContentLoaded', function() {
         { dia: 'Domingo', periodo: 'Fechado', status: 'inativo' }
     ];
     
+    // Carrega os horários de atendimento salvos no localStorage, se existirem
     function carregarHorariosSalvos() {
         const saved = localStorage.getItem('horarios_atendimento');
         if (saved) horariosAtendimento = JSON.parse(saved);
     }
     
+    // Persiste os horários de atendimento atuais no localStorage
     function salvarHorarios() {
         localStorage.setItem('horarios_atendimento', JSON.stringify(horariosAtendimento));
     }
-    
-    // ==================== //
-    // MODAL DE ATENDIMENTO  //
-    // ==================== //
-    
+
+    // Modal de atendimento com abas de prontuário, exames, prescrição e atestado
+
+    // Abre o modal de atendimento do paciente e configura seus eventos internos
     function abrirModalAtendimento(paciente, consulta) {
         const modalExistente = document.getElementById('modalAtendimento');
         if (modalExistente) modalExistente.remove();
@@ -478,7 +478,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Cancelar atendimento - COM CONFIRMAÇÃO COM BARRA AZUL
+        // Cancelar atendimento, pedindo confirmação antes de descartar os dados
         document.getElementById('btnCancelarAtendimento')?.addEventListener('click', function() {
             mostrarConfirmacao(
                 'Cancelar Atendimento', 
@@ -493,7 +493,7 @@ document.addEventListener('DOMContentLoaded', function() {
             );
         });
         
-        // Fechar modal - COM CONFIRMAÇÃO COM BARRA AZUL
+        // Fechar modal, pedindo confirmação antes de descartar os dados não salvos
         document.querySelector('.close-modal')?.addEventListener('click', function() {
             mostrarConfirmacao(
                 'Fechar Atendimento', 
@@ -508,10 +508,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // ==================== //
-    // MODAL DE HORÁRIOS    //
-    // ==================== //
-    
+    // Modal de edição dos horários de atendimento do médico
+
+    // Cria a estrutura do modal de edição de horários e seus eventos de fechamento
     function criarModalHorarios() {
         const modalExistente = document.getElementById('modalEditarHorarios');
         if (modalExistente) modalExistente.remove();
@@ -548,6 +547,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Abre o modal e preenche os campos editáveis com os horários atuais
     function abrirModalEditarHorarios() {
         criarModalHorarios();
         
@@ -585,6 +585,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Lê os campos do modal, atualiza os horários e os persiste
     function salvarHorariosEditados() {
         horariosAtendimento.forEach((horario, index) => {
             const periodoInput = document.getElementById(`periodo_${index}`);
@@ -599,6 +600,7 @@ document.addEventListener('DOMContentLoaded', function() {
         mostrarMensagem('Horários atualizados com sucesso!', 'sucesso');
     }
     
+    // Fecha e remove o modal de edição de horários da página
     function fecharModalHorarios() {
         const modal = document.getElementById('modalEditarHorarios');
         if (modal) {
@@ -607,6 +609,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Exibe uma mensagem flutuante temporária no canto da tela (toast)
     function mostrarMensagem(texto, tipo) {
         const msgAnterior = document.querySelector('.mensagem-flutuante');
         if (msgAnterior) msgAnterior.remove();
@@ -626,6 +629,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => mensagem.remove(), 3000);
     }
     
+    // Injeta as animações de entrada e saída usadas pelas mensagens flutuantes
     const styleAnimacoes = document.createElement('style');
     styleAnimacoes.textContent = `
         @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
@@ -633,10 +637,9 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(styleAnimacoes);
     
-    // ==================== //
-    // RENDERIZAÇÃO         //
-    // ==================== //
-    
+    // Renderização dos indicadores e listas do painel
+
+    // Atualiza os cartões de estatísticas (total do dia, confirmadas, pacientes e próximas)
     function atualizarEstatisticas() {
         const totalHoje = document.getElementById('totalHoje');
         const totalConfirmadas = document.getElementById('totalConfirmadas');
@@ -649,6 +652,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (proximasConsultasElem) proximasConsultasElem.innerText = proximasConsultas.length;
     }
     
+    // Monta a tabela de consultas do dia e liga os botões de iniciar atendimento
     function renderizarConsultasHoje() {
         const container = document.getElementById('consultasHoje');
         if (!container) return;
@@ -698,6 +702,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Monta a tabela das próximas consultas futuras
     function renderizarProximasConsultas() {
         const container = document.getElementById('proximasConsultasLista');
         if (!container) return;
@@ -732,6 +737,7 @@ document.addEventListener('DOMContentLoaded', function() {
         container.innerHTML = html;
     }
     
+    // Monta a lista de horários de atendimento exibida no painel
     function renderizarHorarios() {
         const container = document.getElementById('meusHorarios');
         if (!container) return;
@@ -752,10 +758,12 @@ document.addEventListener('DOMContentLoaded', function() {
         container.innerHTML = html;
     }
     
+    // Função global chamada pelo HTML para abrir o modal de edição de horários
     window.editarHorarios = function() {
         abrirModalEditarHorarios();
     };
-    
+
+    // Inicializa o painel carregando dados salvos e renderizando todas as seções
     carregarHorariosSalvos();
     atualizarEstatisticas();
     renderizarConsultasHoje();

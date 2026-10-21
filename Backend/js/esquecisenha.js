@@ -1,11 +1,11 @@
-// ==============================================
-// SISTEMA DE LOGIN - INOVAMED
-// ==============================================
+// Tela de autenticação do InovaMed (login e sessão de usuário).
+// Valida as credenciais, mantém a sessão e redireciona o usuário conforme seu tipo.
 
 document.addEventListener('DOMContentLoaded', function() {
     inicializarSistema();
 });
 
+// Inicializa a aplicação criando dados padrão e configurando o formulário de login.
 function inicializarSistema() {
     // Cria usuário padrão se não existir
     if (!localStorage.getItem('usuarios')) {
@@ -16,7 +16,7 @@ function inicializarSistema() {
     configurarFormularioLogin();
 }
 
-// Configurar o formulário para logar
+// Associa o evento de envio do formulário de login ao processamento da autenticação.
 function configurarFormularioLogin() {
     const form = document.getElementById('form-login');
     
@@ -33,7 +33,7 @@ function configurarFormularioLogin() {
     console.log('Formulário configurado!');
 }
 
-// Processar login
+// Valida os dados informados e autentica o usuário com base nos registros salvos.
 function processarLogin() {
     // Pega os valores dos campos
     const email = document.getElementById('email').value.trim();
@@ -66,6 +66,7 @@ function processarLogin() {
     }
 }
 
+// Cria e armazena a sessão do usuário autenticado e o redireciona para o painel correto.
 function loginSucesso(usuario, lembrar) {
     console.log('Login bem-sucedido para:', usuario.email);
     
@@ -89,9 +90,7 @@ function loginSucesso(usuario, lembrar) {
     
     mostrarMensagem('Login realizado com sucesso! Redirecionando...', 'sucesso');
     
-    // ==============================================
-    // REDIRECIONAMENTO BASEADO NO TIPO DE USUÁRIO
-    // ==============================================
+    // Redireciona o usuário para o painel de acordo com o seu tipo de acesso.
     setTimeout(function() {
         if (usuario.tipo === 'medico') {
             // Médico vai para dashboard-medico.html
@@ -109,6 +108,7 @@ function loginSucesso(usuario, lembrar) {
     }, 1000);
 }
 
+// Cadastra os usuários padrão (admin, médico e paciente) para uso inicial do sistema.
 function criarUsuarioPadrao() {
     const usuarios = [
         {
@@ -143,15 +143,15 @@ function criarUsuarioPadrao() {
     console.log('Usuários padrão criados:', usuarios.length);
 }
 
-// ==============================================
-// FUNÇÕES AUXILIARES
-// ==============================================
+// Funções auxiliares de apoio ao fluxo de login.
 
+// Verifica se o e-mail informado possui um formato válido.
 function validarEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
 }
 
+// Exibe uma mensagem de feedback de erro ou sucesso acima do formulário de login.
 function mostrarMensagem(texto, tipo) {
     // Remove mensagem anterior
     const msgAnterior = document.querySelector('.mensagem-login');
@@ -186,30 +186,28 @@ function mostrarMensagem(texto, tipo) {
     }
 }
 
-// ==============================================
-// FUNÇÕES GLOBAIS (para usar em outras páginas)
-// ==============================================
+// Funções globais reutilizadas pelas demais páginas do sistema.
 
-// Verifica se usuário está logado
+// Retorna a sessão ativa do usuário, se houver.
 window.verificarSessao = function() {
     const sessao = JSON.parse(localStorage.getItem('sessao')) || 
                   JSON.parse(sessionStorage.getItem('sessao'));
     return sessao;
 };
 
-// Faz logout
+// Encerra a sessão do usuário e o redireciona para a tela de login.
 window.fazerLogout = function() {
     localStorage.removeItem('sessao');
     sessionStorage.removeItem('sessao');
     window.location.href = 'login.html';
 };
 
-// Pega dados do usuário atual
+// Retorna os dados do usuário atualmente autenticado.
 window.getUsuarioAtual = function() {
     return window.verificarSessao();
 };
 
-// Redireciona com base no tipo de usuário (função auxiliar)
+// Redireciona o usuário logado para o painel correspondente ao seu tipo de acesso.
 window.redirecionarPorTipo = function() {
     const sessao = window.verificarSessao();
     if (sessao) {
