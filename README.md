@@ -147,7 +147,7 @@ Você pode publicar o projeto gratuitamente com **GitHub Pages**:
 2. Em _Source_, selecione a branch `main` e a pasta `/root`
 3. Salve — em instantes o site estará no ar
 
-Depois é só acessar: `https://seu-usuario.github.io/InovaMed---TCC/Frontend/paginicial.html`
+Depois é só acessar: `https://giovana-v.github.io/TCC-InovaMed/Frontend/paginicial.html`
 
 > _Link da demo: em breve._
 
@@ -182,15 +182,6 @@ InovaMed---TCC/
 - **Persistência de dados** e gerenciamento de sessão no front-end
 - Preocupação com **validação de formulários**, **UX** e **responsividade**
 - Capacidade de transformar uma necessidade real (gestão em saúde) em um produto digital
-
----
-
-## Próximos passos
-
-- [ ] Implementar back-end real (API + banco de dados)
-- [ ] Autenticação segura com hash de senha (hoje usa codificação Base64)
-- [ ] Notificações de consultas por e-mail
-- [ ] Área administrativa completa
 
 ---
 
